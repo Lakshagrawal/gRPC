@@ -1,0 +1,15 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<project xmlns="http://maven.apache.org/POM/4.0.0">
+    <!-- Project Information -->
+    <modelVersion>4.0.0</modelVersion>
+
+    <groupId>com.techprimer</groupId> <!-- Replace with your group's name -->
+    <artifactId>greeting-parent</artifactId> <!-- Replace with your project name -->
+    <version>1.0-SNAPSHOT</version> <!-- Project version -->
+    <name>greeting-parent</name> <!-- Optional, project display name -->
+    <packaging>pom</packaging>
+    <modules>
+       <module>greeting-common</module>
+       <module>greeting-service</module>
+   </modules>
+</project>
