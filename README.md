@@ -121,6 +121,172 @@ public class GreetingServiceImpl extends GreetingServiceGrpc.GreetingServiceImpl
 }
 ```
 
+## 🔍 Interacting with the gRPC Application
+
+This section provides a step-by-step guide on how to interact with your gRPC application using `grpcurl`, a command-line tool for interacting with gRPC servers.
+
+### Step 1: Install grpcurl
+
+First, you need to install `grpcurl` on your system:
+
+#### On macOS:
+```bash
+brew install grpcurl
+```
+
+#### On Linux (Ubuntu/Debian):
+```bash
+# Download the latest release
+curl -sSL https://github.com/fullstorydev/grpcurl/releases/latest/download/grpcurl_$(uname -s)_$(uname -m).tar.gz | tar -xz
+
+# Move to a directory in your PATH
+sudo mv grpcurl /usr/local/bin/
+```
+
+#### On Linux (using package manager):
+```bash
+# Ubuntu/Debian
+sudo apt-get install grpcurl
+
+# CentOS/RHEL
+sudo yum install grpcurl
+```
+
+#### On Windows:
+```bash
+# Using Chocolatey
+choco install grpcurl
+
+# Using Scoop
+scoop install grpcurl
+```
+
+### Step 2: Discover Available Services
+
+Once your gRPC server is running, you can discover what services are available:
+
+```bash
+# List all available services on the server
+grpcurl --plaintext localhost:9090 list
+```
+
+**Expected Output:**
+```
+com.techprimer.greeting.GreetingService
+```
+
+### Step 3: Explore Service Methods
+
+Discover what methods are available in a specific service:
+
+```bash
+# List all methods in the GreetingService
+grpcurl --plaintext localhost:9090 list com.techprimer.greeting.GreetingService
+```
+
+**Expected Output:**
+```
+Greeting
+```
+
+### Step 4: View Service Schema
+
+You can also inspect the service definition and message schemas:
+
+```bash
+# Describe the service
+grpcurl --plaintext localhost:9090 describe com.techprimer.greeting.GreetingService
+
+# Describe a specific method
+grpcurl --plaintext localhost:9090 describe com.techprimer.greeting.GreetingService.Greeting
+
+# Describe message types
+grpcurl --plaintext localhost:9090 describe com.techprimer.greeting.GreetingRequest
+grpcurl --plaintext localhost:9090 describe com.techprimer.greeting.GreetingResponse
+```
+
+### Step 5: Interact with the API
+
+Now you can make actual calls to your gRPC service:
+
+```bash
+# Call the Greeting method with a JSON payload
+grpcurl --plaintext -d '{"message": "how are you"}' \
+  localhost:9090 com.techprimer.greeting.GreetingService/Greeting
+```
+
+**Expected Response:**
+```json
+{
+  "message": "Received you from server: how are you Hello from server"
+}
+```
+
+### Additional grpcurl Examples
+
+#### Test with different messages:
+```bash
+# Simple greeting
+grpcurl --plaintext -d '{"message": "Hello World"}' \
+  localhost:9090 com.techprimer.greeting.GreetingService/Greeting
+
+# Ask a question
+grpcurl --plaintext -d '{"message": "What is the weather today?"}' \
+  localhost:9090 com.techprimer.greeting.GreetingService/Greeting
+
+# Send a longer message
+grpcurl --plaintext -d '{"message": "This is a test message from grpcurl client"}' \
+  localhost:9090 com.techprimer.greeting.GreetingService/Greeting
+```
+
+#### Using a JSON file for complex requests:
+```bash
+# Create a JSON file
+echo '{"message": "Hello from file"}' > request.json
+
+# Use the file in grpcurl
+grpcurl --plaintext -d @request.json \
+  localhost:9090 com.techprimer.greeting.GreetingService/Greeting
+```
+
+#### Verbose output for debugging:
+```bash
+# Add -v flag for verbose output
+grpcurl -v --plaintext -d '{"message": "debug test"}' \
+  localhost:9090 com.techprimer.greeting.GreetingService/Greeting
+```
+
+### Troubleshooting grpcurl
+
+#### Common Issues:
+
+1. **Connection Refused:**
+   ```bash
+   # Make sure the server is running
+   # Check if the port is correct
+   netstat -tulpn | grep 9090
+   ```
+
+2. **Service Not Found:**
+   ```bash
+   # Verify the service name is correct
+   grpcurl --plaintext localhost:9090 list
+   ```
+
+3. **Invalid JSON Format:**
+   ```bash
+   # Ensure JSON is properly formatted
+   # Use single quotes around the JSON string
+   grpcurl --plaintext -d '{"message": "test"}' \
+     localhost:9090 com.techprimer.greeting.GreetingService/Greeting
+   ```
+
+4. **TLS/SSL Issues:**
+   ```bash
+   # Use --plaintext for non-TLS connections
+   # Remove --plaintext for TLS connections
+   ```
+
 ## 🧪 Testing the Service
 
 ### Using grpcurl (Recommended)
@@ -266,6 +432,7 @@ java -jar target/grpc-spring-boot-example-0.0.1-SNAPSHOT.jar
 - [Spring Boot Documentation](https://spring.io/projects/spring-boot)
 - [Protocol Buffers Guide](https://developers.google.com/protocol-buffers)
 - [gRPC Spring Boot Starter](https://github.com/yidongnan/grpc-spring-boot-starter)
+- [grpcurl Documentation](https://github.com/fullstorydev/grpcurl)
 
 ## 🤝 Contributing
 
