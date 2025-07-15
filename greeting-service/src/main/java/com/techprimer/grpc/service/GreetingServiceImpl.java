@@ -10,15 +10,18 @@ import net.devh.boot.grpc.server.service.GrpcService;
 public class GreetingServiceImpl extends GreetingServiceGrpc.GreetingServiceImplBase {
     @Override
     public void greeting(GreetingRequest request, StreamObserver<GreetingResponse> responseObserver) {
-
-        String greetingMessage = request.getMessage();
-        System.out.println("Received message from client:  " + greetingMessage);
-
-        GreetingResponse response = GreetingResponse.newBuilder()
-                .setMessage("Recived you from from server: " + greetingMessage + " Hello from server")
-                .build();
-
-
+        String userName = request.getUserName();
+        String pass = request.getPass();
+        GreetingResponse response;
+        if(userName.equals("Lakshya") && pass.equals("admin")){
+            response = GreetingResponse.newBuilder()
+                    .setMessage("Conguration for login")
+                    .build();
+        } else {
+            response = GreetingResponse.newBuilder()
+                    .setMessage("Invalid login")
+                    .build();
+        }
         responseObserver.onNext(response);
         responseObserver.onCompleted();
     }

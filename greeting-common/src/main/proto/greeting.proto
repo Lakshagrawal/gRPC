@@ -4,15 +4,15 @@ package com.techprimer.greeting;
 option java_multiple_files = true;
 option java_package = "com.techprimer.grpc";
 
-
 service GreetingService{
     rpc Greeting(GreetingRequest) returns (GreetingResponse){
 
     }
 }
-message GreetingRequest{
-    string message = 1;
 
+message GreetingRequest{
+    string user_name = 1;
+    string pass = 2;
 }
 
 message GreetingResponse{
