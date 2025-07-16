@@ -4,19 +4,42 @@ package com.techprimer.greeting;
 option java_multiple_files = true;
 option java_package = "com.codewithlakshya.grpc";
 
-
-service LoginService{
-    rpc Login(LoginRequest) returns (LoginResponse){
-
-    }
+/**
+ * LoginService provides authentication functionality for the application.
+ * This service handles user authentication with username and password validation.
+ */
+service LoginService {
+    /**
+     * Login authenticates a user with the provided username and password.
+     * 
+     * Currently supports hardcoded credentials:
+     * - Username: "admin"
+     * - Password: "admin"
+     * 
+     * @param request LoginRequest containing username and password
+     * @return LoginResponse with authentication result message
+     */
+    rpc Login(LoginRequest) returns (LoginResponse);
 }
 
-
-message LoginRequest{
+/**
+ * LoginRequest contains the authentication credentials sent by the client.
+ */
+message LoginRequest {
+    // Username for authentication (required)
     string user_name = 1;
+    
+    // Password for authentication (required)
     string pass = 2;
 }
 
-message LoginResponse{
+/**
+ * LoginResponse contains the result of the authentication attempt.
+ */
+message LoginResponse {
+    // Success or error message from the authentication process
+    // Examples:
+    // - "Congratulations for login" (success)
+    // - "Failed to login" (failure)
     string message = 1;
 }

@@ -4,16 +4,35 @@ package com.techprimer.greeting;
 option java_multiple_files = true;
 option java_package = "com.codewithlakshya.grpc";
 
-service GreetingService{
-    rpc Greeting(GreetingRequest) returns (GreetingResponse){
-
-    }
+/**
+ * GreetingService provides simple greeting functionality for the application.
+ * This service handles basic message exchange between client and server.
+ */
+service GreetingService {
+    /**
+     * Greeting processes a message from the client and returns a response.
+     * 
+     * The server will echo back the received message with additional text.
+     * 
+     * @param request GreetingRequest containing the message to process
+     * @return GreetingResponse with the server's response message
+     */
+    rpc Greeting(GreetingRequest) returns (GreetingResponse);
 }
 
-message GreetingRequest{
+/**
+ * GreetingRequest contains the message sent by the client.
+ */
+message GreetingRequest {
+    // Message content from the client (can be any string)
     string message = 1;
 }
 
-message GreetingResponse{
+/**
+ * GreetingResponse contains the server's response to the client's message.
+ */
+message GreetingResponse {
+    // Server's response message
+    // Format: "Received your: {original_message}. Hello from server"
     string message = 1;
 }
