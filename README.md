@@ -98,32 +98,6 @@ mvn spring-boot:run
 
 The gRPC server will start on port **9090** (default gRPC port).
 
-## 🎯 Service Implementation
-
-### Protocol Buffer Definition
-
-The service contract is defined in `greeting-common/src/main/proto/greeting.proto`:
-
-```protobuf
-syntax = "proto3";
-package com.techprimer.greeting;
-
-option java_multiple_files = true;
-option java_package = "com.codewithlakshya.grpc";
-
-service GreetingService {
-    rpc Greeting(GreetingRequest) returns (GreetingResponse);
-}
-
-message GreetingRequest {
-    string message = 1;
-}
-
-message GreetingResponse {
-    string message = 1;
-}
-```
-
 ## 🔐 Login Credentials
 
 **Valid Credentials:**
