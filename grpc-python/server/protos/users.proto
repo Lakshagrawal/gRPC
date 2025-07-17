@@ -1,0 +1,24 @@
+syntax = "proto3";
+
+package users;
+
+service Users {
+  rpc GetUser (UserRequest) returns (UserReply) {}
+
+//   rpc GetUserById(UserRequest) returns (stream UserReply) {}
+
+  rpc GetUserStreamReply (UserRequest) returns (stream UserReply) {}
+
+  rpc GetUserBidiStream (stream UserRequest) returns (stream UserReply) {}
+}
+
+message UserRequest {
+  string name = 1;
+}
+
+message UserReply {
+  string message = 1;
+}
+
+
+// python -m grpc_tools.protoc -I./protos --python_out=. --pyi_out=. --grpc_python_out=. ./protos/users.proto
